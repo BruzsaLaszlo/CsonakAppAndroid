@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Csónak App 2021</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Csörlő Fragment</string>
+    <string name="second_fragment_label">Világítás Fragment</string>
+    <string name="next">Világítás</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="elore">Előre</string>
+    <string name="hatra">Hátra</string>
+    <string name="stop">STOP</string>
+    <string name="buttonToCsorlo">Csörlő</string>
+    <string name="led1">LED1</string>
+    <string name="led2">LED2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

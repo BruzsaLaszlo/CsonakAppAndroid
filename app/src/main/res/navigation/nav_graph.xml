@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.l.csorlo.CsorloFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_csorlo">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_ledFragment"
+            app:destination="@id/ledFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_mapsFragment2"
+            app:destination="@id/mapsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/ledFragment"
+        android:name="com.l.csorlo.LedFragment"
+        android:label="led_fragment"
+        tools:layout="@layout/led_fragment" >
+        <action
+            android:id="@+id/action_ledFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment2"
+        android:name="com.l.csorlo.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment2_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+</navigation>

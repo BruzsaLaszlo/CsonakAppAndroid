@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LedFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/buttonToCsorlo" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSeek"
+            android:layout_width="290dp"
+            android:layout_height="365dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <SeekBar
+                android:id="@+id/seekBar0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:max="255"
+                android:min="0"
+                android:progress="127"
+                android:progressTint="@color/Red" />
+
+
+            <SeekBar
+                android:id="@+id/seekBar1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:indeterminate="false"
+                android:max="255"
+                android:min="0"
+                android:progress="127"
+                android:progressTint="@color/Red" />
+
+            <SeekBar
+                android:id="@+id/seekBar2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:max="255"
+                android:min="0"
+                android:progress="127"
+                android:progressTint="@color/LimeGreen" />
+
+            <SeekBar
+                android:id="@+id/seekBar3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:max="255"
+                android:min="0"
+                android:progress="127"
+                android:progressTint="@color/LimeGreen" />
+
+            <SeekBar
+                android:id="@+id/seekBar4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:max="255"
+                android:min="0"
+                android:progress="127"
+                android:progressTint="@color/Yellow" />
+
+            <SeekBar
+                android:id="@+id/seekBar5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:max="255"
+                android:min="0"
+                android:progress="127"
+                android:progressTint="@color/Yellow" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSwitch"
+            android:layout_width="99dp"
+            android:layout_height="365dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="4dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Switch
+                android:id="@+id/switchLed0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:thumbTint="@color/Red"
+                tools:text="255" />
+
+            <Switch
+                android:id="@+id/switchLed1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:thumbTint="@color/Red" />
+
+            <Switch
+                android:id="@+id/switchLed2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:thumbTint="@color/LimeGreen" />
+
+            <Switch
+                android:id="@+id/switchLed3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:thumbTint="@color/LimeGreen" />
+
+            <Switch
+                android:id="@+id/switchLed4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:thumbTint="@color/Yellow" />
+
+            <Switch
+                android:id="@+id/switchLed5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:thumbTint="@color/Yellow" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
