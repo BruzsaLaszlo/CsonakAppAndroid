@@ -43,7 +43,6 @@ public class SharedViewModel extends ViewModel {
             e.printStackTrace();
         }
     });
-
     private static final Thread thread = new Thread(() -> {
         try {
             ServerSocket listener = new ServerSocket(9091);
@@ -53,21 +52,31 @@ public class SharedViewModel extends ViewModel {
             String s = "";
             while (!stop) {
                 try {
-                    //Thread.sleep(10);
-                    //System.out.println("Waiting for client ...");
                     Socket socket = listener.accept();
                     socket.setSoTimeout(700);
-  //                socket.setKeepAlive(true);
-                    //System.out.println("Client Connected");
+                    //                socket.setKeepAlive(true);
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-                    System.out.println("Client response: " + in.readLine());
+                    String firstMessage = in.readLine();
+                    System.out.println("Client response: " + firstMessage);
 
+                    /*if (firstMessage.equalsIgnoreCase("Serial.monitor")) {
+                        String s1 = in.readLine();
+                        String ss = "";
+                        while (!s1.equalsIgnoreCase("END")) {
+                            ss += s1 + "\n";
+                            s1 = in.readLine();
+                        }
+                        postLog(ss);
+                        continue;
+                    }*/
 
+                    out.write("zzzQ");
                     if (first) {
-                        out.write("zzzQ");
-                        out.write("100Q");
+                        //out.write("zzzQ");
+                        out.write("100B");
+                        out.write("trueS");
                         out.flush();
                         for (int i = 0; i < SIZE_LED; i++) {
                             b[i + 1] = Integer.parseInt(in.readLine());
@@ -85,16 +94,14 @@ public class SharedViewModel extends ViewModel {
 
                     // System.out.println("Sending Message...");
 
-                    out.write("zzzQ");
                     for (int bs : b)
-                        out.write(bs + "Q");
-                    //out.write(b[0] + "Q");
+                        out.write(bs + "B");
                     out.flush();
 
-                    String ss = "sending... cs:" + b[0] + ", L1:" + b[1] * 2 + ", L2:" + b[2] * 2 + ", L3:" + b[3] * 2 + ", L4:" + b[4] * 2 + "\n";
+                    String ss = "sending... cs:" + b[0] + ", L1:" + b[1] * 2 + ", L2:" + b[2] * 2 + ", L3:" + b[3] * 2 + ", L4:" + b[4] * 2;
                     if (!s.equals(ss)) {
                         s = ss;
-                        logm.postValue(s + logm.getValue());
+                        postLog(s);
                     }
 
                     socket.close();
@@ -119,6 +126,10 @@ public class SharedViewModel extends ViewModel {
 
     public SharedViewModel() {
         onStart();
+    }
+
+    private static void postLog(String s) {
+        logm.postValue(s + "\n" + logm.getValue());
     }
 
     public static void onStart() {
@@ -154,15 +165,14 @@ public class SharedViewModel extends ViewModel {
         csorlo.setValue(i);
         String s = "";
         if (i == 1)
-            s = "Csorlo Elore \n";
+            s = "Csorlo Elore";
         else if (i == 2)
-            s = "Csorlo Hatra \n";
+            s = "Csorlo Hatra";
         else if (i == 0) {
             long t = (System.currentTimeMillis() - time) / 1000;
-            s = "Csorlo STOP - " + t + "s \n";
+            s = "Csorlo STOP - " + t + "s";
         }
-        log = s + log;
-        logm.setValue(log);
+        postLog(s);
     }
 
     public void setLED(int i, int value) {
