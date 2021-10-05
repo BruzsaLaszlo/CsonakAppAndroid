@@ -61,7 +61,7 @@ public class SharedViewModel extends ViewModel {
                     String firstMessage = in.readLine();
                     System.out.println("Client response: " + firstMessage);
 
-                    /*if (firstMessage.equalsIgnoreCase("Serial.monitor")) {
+                    if (firstMessage.equalsIgnoreCase("Serial.monitor")) {
                         String s1 = in.readLine();
                         String ss = "";
                         while (!s1.equalsIgnoreCase("END")) {
@@ -70,11 +70,10 @@ public class SharedViewModel extends ViewModel {
                         }
                         postLog(ss);
                         continue;
-                    }*/
+                    }
 
                     out.write("zzzQ");
                     if (first) {
-                        //out.write("zzzQ");
                         out.write("100B");
                         out.write("trueS");
                         out.flush();
