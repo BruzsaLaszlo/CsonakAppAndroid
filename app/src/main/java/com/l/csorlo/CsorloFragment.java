@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -73,6 +74,11 @@ public class CsorloFragment extends Fragment {
             buttonHatra.setEnabled(isChecked);
             buttonStop.setEnabled(false);
         }));
+
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
+        viewModel.isConnected().observe(getViewLifecycleOwner(), isConnected -> {
+            progressBar.setVisibility(isConnected?View.INVISIBLE:View.VISIBLE);
+        });
 
     }
 }

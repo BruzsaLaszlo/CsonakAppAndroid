@@ -4,7 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/onedrive/programming/Csorlo/app/src/main/res/layout/activity_main.xml" value="0.18947368421052632" />
+        <entry key="..\:/onedrive/programming/Csorlo/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/onedrive/programming/Csorlo/app/src/main/res/layout/fragment_csorlo.xml" value="0.22" />
+        <entry key="..\:/onedrive/programming/Csorlo/app/src/main/res/layout/fragment_debug.xml" value="0.1" />
+        <entry key="..\:/onedrive/programming/Csorlo/app/src/main/res/layout/fragment_maps.xml" value="0.18947368421052632" />
+        <entry key="..\:/onedrive/programming/Csorlo/app/src/main/res/layout/led_fragment.xml" value="0.1" />
+        <entry key="..\:/onedrive/programming/Csorlo/app/src/main/res/menu/menu_main.xml" value="0.1" />
       </map>
     </option>
   </component>

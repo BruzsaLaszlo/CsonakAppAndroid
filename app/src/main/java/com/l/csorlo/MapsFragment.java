@@ -35,6 +35,7 @@ public class MapsFragment extends Fragment {
             LatLng rackeve_haz = new LatLng(47.11450, 18.987820);
             googleMap.addMarker(new MarkerOptions().position(rackeve_haz).title("Rackeve haz"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(rackeve_haz));
+            googleMap.setMinZoomPreference(15);
         }
     };
 
