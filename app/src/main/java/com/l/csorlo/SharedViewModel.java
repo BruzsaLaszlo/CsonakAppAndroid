@@ -26,6 +26,7 @@ public class SharedViewModel extends ViewModel {
     private static boolean stop = false;
     private static boolean first = true;
     private static long cycle = 0;
+    private static int mcount = 0;
 
     private static final Thread connectionTimeOutThread = new Thread(() -> {
         long c = cycle;
@@ -59,48 +60,47 @@ public class SharedViewModel extends ViewModel {
                     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
                     String firstMessage = in.readLine();
-                    System.out.println("Client response: " + firstMessage);
+
 
                     if (firstMessage.equalsIgnoreCase("Serial.monitor")) {
                         String s1 = in.readLine();
-                        String ss = "";
+                        String ss = ++mcount + "$erial Monitor: \n";
                         while (!s1.equalsIgnoreCase("END")) {
                             ss += s1 + "\n";
                             s1 = in.readLine();
                         }
                         postLog(ss);
-                        continue;
-                    }
+                    } else if (firstMessage.equalsIgnoreCase("ESP8266: Connected!")){
+                        System.out.println("Client response: " + firstMessage);
+                        //out.write("zzzQ");
+                        if (first) {
+                            first = false;
+                            out.write("100B");
+                            //out.write("trueS");
+                            out.flush();
+                            for (int i = 0; i < SIZE_LED; i++) {
+                                b[i + 1] = Integer.parseInt(in.readLine());
+                                switchIsChecked[i] = b[i + 1] != 0;
+                                System.out.print(b[i + 1] + "    ");
+                            }
+                            System.out.println(" ");
+                            b[0] = 0;
+                            csorlo.postValue(b[0]);
 
-                    out.write("zzzQ");
-                    if (first) {
-                        out.write("100B");
-                        out.write("trueS");
-                        out.flush();
-                        for (int i = 0; i < SIZE_LED; i++) {
-                            b[i + 1] = Integer.parseInt(in.readLine());
-                            switchIsChecked[i] = b[i + 1] != 0;
-                            System.out.print(b[i + 1] + "    ");
+                            connected.postValue(true);
+                            socket.close();
+                        } else {
+
+                            for (int bs : b)
+                                out.write(bs + "B");
+                            out.flush();
+
+                            String ss = "sending... cs:" + b[0] + ", L1:" + b[1] * 2 + ", L2:" + b[2] * 2 + ", L3:" + b[3] * 2 + ", L4:" + b[4] * 2;
+                            if (!s.equals(ss)) {
+                                s = ss;
+                                postLog(s);
+                            }
                         }
-                        System.out.println(" ");
-                        b[0] = 0;
-                        csorlo.postValue(b[0]);
-                        first = false;
-                        connected.postValue(true);
-                        socket.close();
-                        continue;
-                    }
-
-                    // System.out.println("Sending Message...");
-
-                    for (int bs : b)
-                        out.write(bs + "B");
-                    out.flush();
-
-                    String ss = "sending... cs:" + b[0] + ", L1:" + b[1] * 2 + ", L2:" + b[2] * 2 + ", L3:" + b[3] * 2 + ", L4:" + b[4] * 2;
-                    if (!s.equals(ss)) {
-                        s = ss;
-                        postLog(s);
                     }
 
                     socket.close();

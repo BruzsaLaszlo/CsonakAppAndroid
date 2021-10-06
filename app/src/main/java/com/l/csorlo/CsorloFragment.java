@@ -5,7 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -37,7 +38,7 @@ public class CsorloFragment extends Fragment {
         view.findViewById(R.id.buttonMaps).setOnClickListener(view1 -> NavHostFragment.findNavController(CsorloFragment.this)
                 .navigate(R.id.action_FirstFragment_to_mapsFragment2));
 
-        EditText log = view.findViewById(R.id.textMultiLine);
+        TextView log = view.findViewById(R.id.textMultiLine);
         Button buttonElore = view.findViewById(R.id.buttonElore);
         Button buttonHatra = view.findViewById(R.id.buttonHatra);
         Button buttonStop = view.findViewById(R.id.buttonStop);
@@ -46,16 +47,16 @@ public class CsorloFragment extends Fragment {
         buttonHatra.setOnClickListener((b) -> viewModel.setCsorlo(2));
         buttonStop.setOnClickListener((b) -> viewModel.setCsorlo(0));
 
-        viewModel.getCsorlo().observe(getViewLifecycleOwner(), csorlo ->{
-            if (csorlo == 0){
+        viewModel.getCsorlo().observe(getViewLifecycleOwner(), csorlo -> {
+            if (csorlo == 0) {
                 buttonStop.setEnabled(false);
                 buttonElore.setEnabled(true);
                 buttonHatra.setEnabled(true);
-            } else if (csorlo == 1){
+            } else if (csorlo == 1) {
                 buttonHatra.setEnabled(true);
                 buttonElore.setEnabled(false);
                 buttonStop.setEnabled(true);
-            }else if (csorlo == 2){
+            } else if (csorlo == 2) {
                 buttonHatra.setEnabled(false);
                 buttonElore.setEnabled(true);
                 buttonStop.setEnabled(true);
@@ -63,6 +64,15 @@ public class CsorloFragment extends Fragment {
         });
         viewModel.getLog().observe(getViewLifecycleOwner(), log::setText);
 
+        Switch csorloSwitch = view.findViewById(R.id.csorloSwitch);
+        csorloSwitch.setChecked(true);
+        csorloSwitch.setOnCheckedChangeListener(((buttonView, isChecked) -> {
+            if (!isChecked)
+                viewModel.setCsorlo(0);
+            buttonElore.setEnabled(isChecked);
+            buttonHatra.setEnabled(isChecked);
+            buttonStop.setEnabled(false);
+        }));
 
     }
 }
