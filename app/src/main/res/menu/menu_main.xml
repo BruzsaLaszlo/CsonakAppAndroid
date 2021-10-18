@@ -8,6 +8,6 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
-        android:id="@+id/maps"
-        android:title="Maps" />
+        android:id="@+id/testFirebase"
+        android:title="TestFirebase" />
 </menu>

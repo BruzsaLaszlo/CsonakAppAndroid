@@ -20,19 +20,19 @@ public class SharedViewModel extends ViewModel {
     private static final MutableLiveData<Integer> csorlo = new MutableLiveData<>();
     private static final MutableLiveData<String> logm = new MutableLiveData<>();
     private static final MutableLiveData<Boolean> connected = new MutableLiveData<>(false);
+    private static final MutableLiveData<Boolean> test = new MutableLiveData<>(false);
     private static final int size_b = 9; // 0 csorlo, 1-6 ledek, 8-9 relay
     private static final int[] b = new int[size_b];
     private static final boolean[] switchIsChecked = new boolean[SIZE_LED];
     private static boolean stop = false;
     private static boolean first = true;
     private static long cycle = 0;
-    private static int mcount = 0;
-
     private static final Thread connectionTimeOutThread = new Thread(() -> {
         long c = cycle;
         try {
             while (!stop) {
                 Thread.sleep(TIMEOUT);
+                if (test.getValue()) continue;
                 if (c == cycle) {
                     first = true;
                     System.err.println("kifutottunk az idobol!");
@@ -44,6 +44,7 @@ public class SharedViewModel extends ViewModel {
             e.printStackTrace();
         }
     });
+    private static int mcount = 0;
     private static final Thread thread = new Thread(() -> {
         try {
             ServerSocket listener = new ServerSocket(9091);
@@ -64,19 +65,20 @@ public class SharedViewModel extends ViewModel {
 
                     if (firstMessage.equalsIgnoreCase("Serial.monitor")) {
                         String s1 = in.readLine();
+                        if (s1.contains("testEND"))
+                            test.postValue(false);
                         String ss = ++mcount + "$erial Monitor: \n";
                         while (!s1.equalsIgnoreCase("END")) {
                             ss += s1 + "\n";
                             s1 = in.readLine();
                         }
                         postLog(ss);
-                    } else if (firstMessage.equalsIgnoreCase("ESP8266: Connected!")){
+                    } else if (firstMessage.equalsIgnoreCase("ESP8266: Connected!")) {
                         System.out.println("Client response: " + firstMessage);
-                        //out.write("zzzQ");
+                        out.write(test.getValue().toString() + "S");
                         if (first) {
                             first = false;
                             out.write("100B");
-                            //out.write("trueS");
                             out.flush();
                             for (int i = 0; i < SIZE_LED; i++) {
                                 b[i + 1] = Integer.parseInt(in.readLine());
@@ -140,6 +142,10 @@ public class SharedViewModel extends ViewModel {
 
     public static void stopThread() {
         stop = true;
+    }
+
+    public static void setTest(boolean test) {
+        SharedViewModel.test.setValue(test);
     }
 
     public int getLed(int i) {
