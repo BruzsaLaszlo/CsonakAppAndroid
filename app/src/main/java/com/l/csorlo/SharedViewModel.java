@@ -27,6 +27,7 @@ public class SharedViewModel extends ViewModel {
     private static boolean stop = false;
     private static boolean first = true;
     private static long cycle = 0;
+
     private static final Thread connectionTimeOutThread = new Thread(() -> {
         long c = cycle;
         try {
@@ -44,6 +45,7 @@ public class SharedViewModel extends ViewModel {
             e.printStackTrace();
         }
     });
+
     private static int mcount = 0;
     private static final Thread thread = new Thread(() -> {
         try {
