@@ -32,6 +32,7 @@ public class SharedViewModel extends ViewModel {
         long c = cycle;
         try {
             while (!stop) {
+                //noinspection BusyWait
                 Thread.sleep(TIMEOUT);
                 if (test.getValue()) continue;
                 if (c == cycle) {
@@ -69,12 +70,12 @@ public class SharedViewModel extends ViewModel {
                         String s1 = in.readLine();
                         if (s1.contains("testEND"))
                             test.postValue(false);
-                        String ss = ++mcount + "$erial Monitor: \n";
+                        StringBuilder ss = new StringBuilder(++mcount + "$erial Monitor: \n");
                         while (!s1.equalsIgnoreCase("END")) {
-                            ss += s1 + "\n";
+                            ss.append(s1).append("\n");
                             s1 = in.readLine();
                         }
-                        postLog(ss);
+                        postLog(ss.toString());
                     } else if (firstMessage.equalsIgnoreCase("ESP8266: Connected!")) {
                         System.out.println("Client response: " + firstMessage);
                         out.write(test.getValue().toString() + "S");
@@ -124,7 +125,7 @@ public class SharedViewModel extends ViewModel {
             e.printStackTrace();
         }
     });
-    private String log;
+
     private long time;
 
     public SharedViewModel() {
